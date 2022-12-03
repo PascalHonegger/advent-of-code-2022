@@ -10,29 +10,28 @@ enum class RoundResult(val score: Int) {
     Lose(score = 0),
 }
 
-fun String.toHand() = when(this) {
-    "A" -> Hand.Rock
-    "B"-> Hand.Paper
-    "C" -> Hand.Scissor
-    "X" -> Hand.Rock
-    "Y"-> Hand.Paper
-    "Z" -> Hand.Scissor
-    else -> error("Failed to parse '$this'")
-}
-
-fun String.toRoundResult() = when(this) {
-    "X" -> RoundResult.Lose
-    "Y"-> RoundResult.Draw
-    "Z" -> RoundResult.Win
-    else -> error("Failed to parse '$this'")
-}
-
-infix fun Hand.beats(other: Hand) =
-    this == Hand.Scissor && other == Hand.Paper ||
-            this == Hand.Rock && other == Hand.Scissor ||
-            this == Hand.Paper && other == Hand.Rock
-
 fun main() {
+    fun String.toHand() = when(this) {
+        "A" -> Hand.Rock
+        "B"-> Hand.Paper
+        "C" -> Hand.Scissor
+        "X" -> Hand.Rock
+        "Y"-> Hand.Paper
+        "Z" -> Hand.Scissor
+        else -> error("Failed to parse '$this'")
+    }
+
+    fun String.toRoundResult() = when(this) {
+        "X" -> RoundResult.Lose
+        "Y"-> RoundResult.Draw
+        "Z" -> RoundResult.Win
+        else -> error("Failed to parse '$this'")
+    }
+
+    infix fun Hand.beats(other: Hand) =
+        this == Hand.Scissor && other == Hand.Paper ||
+                this == Hand.Rock && other == Hand.Scissor ||
+                this == Hand.Paper && other == Hand.Rock
 
     fun part1(input: List<String>): Int {
         return input.sumOf {  round ->
@@ -64,7 +63,6 @@ fun main() {
         }
     }
 
-    // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day02_test")
     check(part1(testInput) == 15)
     check(part2(testInput) == 12)
