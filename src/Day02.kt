@@ -1,10 +1,10 @@
-enum class Hand(val score: Int) {
+private enum class Hand(val score: Int) {
     Rock(score = 1),
     Paper(score = 2),
     Scissor(score = 3),
 }
 
-enum class RoundResult(val score: Int) {
+private enum class RoundResult(val score: Int) {
     Win(score = 6),
     Draw(score = 3),
     Lose(score = 0),

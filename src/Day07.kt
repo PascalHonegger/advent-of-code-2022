@@ -1,15 +1,15 @@
-sealed interface SystemNode {
+private sealed interface SystemNode {
     val name: String
     val size: Int
 }
 
-data class SystemDirectory(override val name: String, val children: List<SystemNode>) : SystemNode {
+private data class SystemDirectory(override val name: String, val children: List<SystemNode>) : SystemNode {
     override val size = children.sumOf { it.size }
 }
 
-data class SystemFile(override val name: String, override val size: Int) : SystemNode
+private data class SystemFile(override val name: String, override val size: Int) : SystemNode
 
-sealed interface SystemCommand {
+private sealed interface SystemCommand {
     data class SystemCommandCD(val target: String) : SystemCommand
     object SystemCommandLS : SystemCommand
 }

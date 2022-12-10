@@ -1,6 +1,6 @@
 import kotlin.math.abs
 
-enum class HeadDirection(val x: Int, val y: Int) {
+private enum class HeadDirection(val x: Int, val y: Int) {
     Up(0, 1),
     UpRight(1, 1),
     Right(1, 0),
@@ -11,15 +11,15 @@ enum class HeadDirection(val x: Int, val y: Int) {
     UpLeft(-1, 1),
 }
 
-data class RopePosition(val x: Int, val y: Int)
+private data class RopePosition(val x: Int, val y: Int)
 
-operator fun RopePosition.plus(direction: HeadDirection) = RopePosition(x = x + direction.x, y = y + direction.y)
-infix fun RopePosition.touches(other: RopePosition) = abs(x - other.x) <= 1 && abs(y - other.y) <= 1
-infix fun RopePosition.sameColumnAs(other: RopePosition) = x == other.x
-infix fun RopePosition.sameRowAs(other: RopePosition) = y == other.y
-infix fun RopePosition.leftOf(other: RopePosition) = x < other.x
-infix fun RopePosition.bottomOf(other: RopePosition) = y < other.y
-infix fun RopePosition.directionTowards(other: RopePosition) = when {
+private operator fun RopePosition.plus(direction: HeadDirection) = RopePosition(x = x + direction.x, y = y + direction.y)
+private infix fun RopePosition.touches(other: RopePosition) = abs(x - other.x) <= 1 && abs(y - other.y) <= 1
+private infix fun RopePosition.sameColumnAs(other: RopePosition) = x == other.x
+private infix fun RopePosition.sameRowAs(other: RopePosition) = y == other.y
+private infix fun RopePosition.leftOf(other: RopePosition) = x < other.x
+private infix fun RopePosition.bottomOf(other: RopePosition) = y < other.y
+private infix fun RopePosition.directionTowards(other: RopePosition) = when {
     this touches other -> null
     this sameColumnAs other -> when {
         this bottomOf other -> HeadDirection.Up
@@ -44,9 +44,9 @@ infix fun RopePosition.directionTowards(other: RopePosition) = when {
     }
 }
 
-data class HeadMove(val direction: HeadDirection, val amount: Int)
+private data class HeadMove(val direction: HeadDirection, val amount: Int)
 
-class RopeSimulator(length: Int) {
+private class RopeSimulator(length: Int) {
     private var rope = (1..length).map { RopePosition(x = 0, y = 0) }
     private val visitedByTail = mutableSetOf(rope.last())
 
