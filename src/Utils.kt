@@ -20,3 +20,13 @@ fun readTextInput(name: String) = File("src", "$name.txt")
 fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray()))
     .toString(16)
     .padStart(32, '0')
+
+/**
+ * Calculate product by multiplying all elements together
+ */
+fun Iterable<Int>.product() = reduce(Int::times)
+
+/**
+ * Calculate product by multiplying all elements together
+ */
+fun Iterable<Long>.product() = reduce(Long::times)

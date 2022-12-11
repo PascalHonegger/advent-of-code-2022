@@ -29,7 +29,7 @@ private class CpuSimulator {
     }
 }
 
-const val crtLineLength = 40
+private const val crtLineLength = 40
 
 private class CrtSimulator {
     fun print(cycle: Int, state: RegisterState) {
