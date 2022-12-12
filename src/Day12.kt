@@ -9,7 +9,7 @@ fun main() {
         override fun toString() = "[$index]: $character"
     }
 
-    fun findShortestPath(input: List<String>): Int? {
+    fun findShortestPath(input: List<String>, isStart: (c: Char) -> Boolean): Int? {
         lateinit var end: Node
         val distanceFromStart = mutableListOf<Int>()
         val nodes = mutableListOf<Node>()
@@ -18,9 +18,8 @@ fun main() {
             for (cell in row) {
                 val node = Node(character = cell, index = nodes.size)
                 nodes += node
-                val isStart = cell == 'S'
                 val isEnd = cell == 'E'
-                distanceFromStart += if (isStart) 0 else Int.MAX_VALUE
+                distanceFromStart += if (isStart(cell)) 0 else Int.MAX_VALUE
                 if (isEnd) {
                     end = node
                 }
@@ -66,33 +65,12 @@ fun main() {
         return null
     }
 
-    fun String.enumerateStartingPositions() = sequence {
-        replace("S", "a").also {
-            for (i in indices) {
-                if (it[i] == 'a') {
-                    yield(it.replaceRange(i..i, "S"))
-                }
-            }
-        }
-    }
-
-    fun List<String>.enumerateStartingPositions() = sequence {
-        for (i in indices) {
-            get(i).enumerateStartingPositions().forEach {
-                val copy = toMutableList()
-                copy[i] = it
-                yield(copy)
-            }
-        }
-    }
-
     fun part1(input: List<String>): Int {
-        return findShortestPath(input) ?: error("No path found")
+        return findShortestPath(input) { it == 'S' } ?: error("No path found")
     }
 
     fun part2(input: List<String>): Int {
-        return input.enumerateStartingPositions()
-            .mapNotNull { findShortestPath(it) }.min()
+        return findShortestPath(input) { it == 'S' || it == 'a' } ?: error("No path found")
     }
 
     val testInput = readInput("Day12_test")
