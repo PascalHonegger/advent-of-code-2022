@@ -1,6 +1,5 @@
 import kotlin.math.max
 
-
 private enum class SearchDirection { Right, Down, Left, Up }
 
 fun main() {
@@ -68,7 +67,6 @@ fun main() {
     fun simulateFallingRocks(windPattern: String, numRocks: Long): Long {
         var towerHeight = 0L
 
-        // val blocked = mutableSetOf<Point>()
         var blocked = emptySet<Point>()
 
         val horizontalLimit = 1..7
@@ -117,7 +115,6 @@ fun main() {
         var windOffset = 0
         var rockOffset = 0
         var placedRocks = 0L
-        var usePatterns = true
 
         val knownPatterns = mutableMapOf<Triple<Int, Int, Set<Point>>, Pair<Long, Long>>()
 
@@ -150,9 +147,6 @@ fun main() {
             }
             placedRocks++
 
-            if (!usePatterns)
-                continue
-
             val patternKey = Triple(windOffset, rockOffset, blocked.normalized())
             val pattern = knownPatterns[patternKey]
             if (pattern != null) {
@@ -165,9 +159,6 @@ fun main() {
                 val totalHeightDifference = heightInPattern * patternRepetitions
                 towerHeight += totalHeightDifference
                 blocked = blocked.map { it.withOffset(deltaY = totalHeightDifference) }.toSet()
-
-                usePatterns = false
-                continue
             } else {
                 knownPatterns[patternKey] = placedRocks to towerHeight
             }
