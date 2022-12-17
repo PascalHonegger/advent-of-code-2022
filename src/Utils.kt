@@ -12,7 +12,7 @@ fun readInput(name: String) = File("src", "$name.txt")
  * Reads whole text from the given input txt file.
  */
 fun readTextInput(name: String) = File("src", "$name.txt")
-    .readText()
+    .readText().trim()
 
 /**
  * Converts string to md5 hash.
